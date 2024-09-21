@@ -1,4 +1,4 @@
-import { BsSend } from 'react-icons/bs';
+import { BsSend } from "react-icons/bs";
 
 const WriteMsg = () => {
   return (
@@ -21,3 +21,4 @@ const WriteMsg = () => {
 };
 
 export default WriteMsg;
+
