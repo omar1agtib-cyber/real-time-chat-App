@@ -1,4 +1,5 @@
-import GenderCheck from './GenderCheck';
+import { Link } from "react-router-dom";
+import GenderCheck from "./GenderCheck";
 
 const Signup = () => {
   return (
@@ -56,12 +57,12 @@ const Signup = () => {
           {/* Gender */}
 
           <GenderCheck />
-          <a
-            href="#"
+          <Link
+            to="/login"
             className="text-sm text-gray-100 hover:underline hover:text-blue-600 mt-2 inline-block"
           >
             Already have an account ?
-          </a>
+          </Link>
 
           <div>
             <button className="btn  btn-sm mt-2 border-slate-700 bg-blue-500">
