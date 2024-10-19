@@ -1,15 +1,23 @@
-import { TiMessages } from 'react-icons/ti';
+import { TiMessages } from "react-icons/ti";
 
-import Messages from './Messages';
-import WriteMsg from './WriteMsg';
+import Messages from "./Messages";
+import WriteMsg from "./WriteMsg";
+import useCoversation from "../../zustand/useConversation";
+import { useEffect } from "react";
 
 const MessageContent = () => {
-  const chatSelected = false;
+  const { selectedConv, setSelectedConv } = useCoversation();
+  //when this component is no longer in the brower
+  useEffect(() => {
+    // cleanup function (unmounts)
+    return () => setSelectedConv(null);
+  }, [setSelectedConv]);
+
   return (
     <div className="md:min-w-[450px] flex flex-col">
       {/* header */}
-        {chatSelected ? (
-          <>
+      {selectedConv ? (
+        <>
           <div className="bg-blue-500 px-4 py-2 mb-2 flex items-center">
             <div className="avatar">
               <div className="w-10 rounded-full">
@@ -19,17 +27,19 @@ const MessageContent = () => {
                 />
               </div>
             </div>
-            <span className="text-white font-bold">Amine Blm</span>
+            <span className="text-white font-bold">
+              {selectedConv.fullName}
+            </span>
           </div>
-          </>
-        ) : (
-          <NoChatSelected />
-        )}
-        {/* messages */}
-        <Messages />
+        </>
+      ) : (
+        <NoChatSelected />
+      )}
+      {/* messages */}
+      <Messages />
 
-        {/* Message Input */}
-        <WriteMsg />
+      {/* Message Input */}
+      <WriteMsg />
     </div>
   );
 };

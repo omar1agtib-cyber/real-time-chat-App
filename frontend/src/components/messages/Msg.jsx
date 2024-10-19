@@ -1,6 +1,14 @@
-const Msg = () => {
+import { useAuthContext } from "../../context/AuthContext";
+import { extractTime } from "../../utils/extractTime";
+const Msg = ({ message }) => {
+  const { authUser } = useAuthContext();
+  const fromMe = message.senderId === authUser._id;
+  const formattedTime = extractTime(message.createdAt);
+  const chatClassName = fromMe ? "chat-end" : "chat-start";
+  const bubbleBgColor = fromMe ? "bg-blue-500" : "";
+
   return (
-    <div className="chat chat-end">
+    <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img
@@ -9,10 +17,12 @@ const Msg = () => {
           />
         </div>
       </div>
-      <div className={`chat-bubble text-white bg-blue-500`}>
-        Hi ! How are you?
+      <div className={`chat-bubble text-white ${bubbleBgColor} pb-2`}>
+        {message.message}
       </div>
-      <div className=" text-white chat-footer opacity-50 text-xs flex gap-1 items-center">23.09</div>
+      <div className=" text-white chat-footer opacity-50 text-xs flex gap-1 items-center">
+      {formattedTime}
+      </div>
     </div>
   );
 };

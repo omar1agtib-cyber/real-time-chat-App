@@ -1,5 +1,5 @@
-import Message from '../models/message.js';
-import Conversation from '../models/conversation.js';
+import Message from "../models/message.js";
+import Conversation from "../models/conversation.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -32,10 +32,10 @@ export const sendMessage = async (req, res) => {
 
     // will run in the same time
     await Promise.all([conversation.save(), newMessage.save()]);
-    res.status(201).json({ newMessage });
+    res.status(201).json(newMessage);
   } catch (error) {
-    console.log('Error in sendMessage : ', error.message);
-    res.status(500).json({ error: 'Server Error' });
+    console.log("Error in sendMessage : ", error.message);
+    res.status(500).json({ error: "Server Error" });
   }
 };
 
@@ -48,7 +48,7 @@ export const getMessages = async (req, res) => {
       participants: {
         $all: [senderId, userToChatId],
       },
-    }).populate('messages'); // the actual msg
+    }).populate("messages"); // the actual msg
 
     if (!conversation) return res.status(200).json([]);
 
@@ -56,7 +56,7 @@ export const getMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (error) {
-    console.log('Error in getMessages: ', error.message);
-    res.status(500).json({ error: 'Server Error' });
+    console.log("Error in getMessages: ", error.message);
+    res.status(500).json({ error: "Server Error" });
   }
 };
